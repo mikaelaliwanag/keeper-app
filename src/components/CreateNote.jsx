@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
+import Zoom from '@material-ui/core/Zoom';
 
 function CreateNote(props) {
 
@@ -34,7 +35,11 @@ function submitNote(event) {
       <form className="create-note">
         <input name="title" onChange={handleChange} value={note.title} placeholder="Title" />
         <textarea name="content" onChange={handleChange} value={note.content} placeholder="Take a note..." rows="3" />
-        <Fab onClick={submitNote}><AddIcon /></Fab>
+        <Zoom in={true}>
+          <Fab onClick={submitNote}>
+            <AddIcon />
+          </Fab>
+        </Zoom>
       </form>
     </div>
   );
