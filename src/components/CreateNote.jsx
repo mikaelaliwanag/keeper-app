@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import AddIcon from '@material-ui/icons/Add';
-import Fab from '@material-ui/core/Fab';
+import { Fab } from '@material-ui/core';
 import Zoom from '@material-ui/core/Zoom';
 
 function CreateNote(props) {
+
+const [isExpanded, setExpanded] = useState(false);
 
 const [note, setNote] = useState({
   title: "",
@@ -30,19 +32,40 @@ function submitNote(event) {
   event.preventDefault()
 }
 
-  return (
-    <div>
-      <form className="create-note">
-        <input name="title" onChange={handleChange} value={note.title} placeholder="Title" />
-        <textarea name="content" onChange={handleChange} value={note.content} placeholder="Take a note..." rows="3" />
-        <Zoom in={true}>
-          <Fab onClick={submitNote}>
-            <AddIcon />
-          </Fab>
-        </Zoom>
-      </form>
-    </div>
-  );
+function expand() {
+  setExpanded(true);
 }
+
+
+return (
+  <div>
+    <form className="create-note">
+      {isExpanded && (
+      <input
+        name="title"
+        onChange={handleChange}
+        value={note.title}
+        placeholder="Title"
+      />
+      )}
+
+      <textarea
+        name="content"
+        onClick={expand}
+        onChange={handleChange}
+        value={note.content}
+        placeholder="Take a note..."
+        rows={isExpanded ? 3 : 1}
+      />
+      <Zoom in={isExpanded}>
+        <Fab onClick={submitNote}>
+          <AddIcon />
+        </Fab>
+      </Zoom>
+    </form>
+  </div>
+);
+}
+
 
 export default CreateNote;
